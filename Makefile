@@ -8,6 +8,11 @@ all:
 	migrate -source file://migrations/mysql \
 	-database "mysql://${MYSQL_USER}:${MYSQL_PASS}@tcp(localhost:3306)/${MYSQL_DB}" up
 
+all-docker: 
+	ls -lR /app
+	./.bin/migrate -source file:///app/migrations/mysql \
+	-database "${MYSQL_DSN}" up
+
 # make NAME="test" create  - создание файлов миграции
 create: 
 	migrate create -dir migrations/mysql -ext sql ${NAME}
