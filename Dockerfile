@@ -16,5 +16,5 @@ RUN curl -s -L https://github.com/golang-migrate/migrate/releases/download/$MIGR
 RUN adduser -D app && mkdir -p /app && chown -R app /app
 USER app
 
-ENTRYPOINT  sleep 10 && make all-docker && sleep infinity && wait
+ENTRYPOINT  make all-docker
 #ENTRYPOINT sleep infinity 
