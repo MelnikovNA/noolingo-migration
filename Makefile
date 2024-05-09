@@ -1,17 +1,13 @@
-MYSQL_USER?=root
-MYSQL_PASS?=secret
-MYSQL_DB?=noolingo
-
-
-
 all: 
 	migrate -source file://migrations/mysql \
-	-database "mysql://${MYSQL_USER}:${MYSQL_PASS}@tcp(localhost:3306)/${MYSQL_DB}" up
+	-database "${MYSQL_DSN}" up
 
 all-docker: 
-	ls -lR /app
-	./.bin/migrate -source file:///app/migrations/mysql \
-	-database "${MYSQL_DSN}" up
+	sleep 10
+	./.bin/migrate -source file:///app/migrations/mysql -database "${MYSQL_DSN}" up
+
+all-kube: all-docker
+	sleep infinity && wait
 
 # make NAME="test" create  - создание файлов миграции
 create: 
